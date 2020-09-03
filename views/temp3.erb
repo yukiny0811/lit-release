@@ -1,0 +1,6 @@
+<select name="usermember" size="1" id="memberSelect">
+  <option value="nil">選択されていません</option>
+  <% @value.members.all.each do |s| %>
+    <option value="<%= s.id %>"><%= s.membername %></option>
+  <% end %>
+</select>

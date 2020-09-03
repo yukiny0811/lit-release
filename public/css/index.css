@@ -1,0 +1,227 @@
+*{
+  padding: 0;
+  margin: 0;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 20px;
+  color: rgb(50, 50, 50);
+}
+
+body{
+  background-color: lightyellow;
+}
+
+#canvas{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#userButton{
+  position: absolute;
+  width: 80%;
+}
+#userButton .cls-1{
+  fill: rgb(66, 156, 215);
+}
+#userButton .cls-2{
+  fill: white;
+}
+#userButton .cls-3{
+  fill: white;
+}
+#userButtonContainer{
+  position: fixed;
+  width: 6%;
+  left: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 800;
+}
+#userButton:hover{
+  width: 100%;
+}
+
+#setteiButton{
+  position: absolute;
+  width: 80%;
+}
+
+#setteiButton .cls-1{
+  fill: rgb(66, 156, 215);
+}
+#setteiButton .cls-2{
+  fill: white;
+}
+#setteiButton .cls-3{
+  fill: rgb(66, 156, 215);
+}
+
+#setteiButtonContainer{
+  position: fixed;
+  width: 6%;
+  left: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 800;
+}
+#setteiButton:hover{
+  width: 100%;
+}
+
+#mainTitle{
+
+}
+
+#mainTitleContainer{
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#mainTitleContainer3{
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+
+
+#oresen{
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+#pie{
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+#allContainer1{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+#allContainer2{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 100%;
+}
+#allContainer3{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 200%;
+}
+
+#firstContainer{
+  position: absolute;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 25%;
+  z-index: 100;
+  fill: rgb(245, 201, 69);
+}
+#secondContainer{
+  position: absolute;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  z-index: 90;
+  fill: rgb(66, 156, 215);
+}
+#thirdContainer{
+  position: absolute;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 10%;
+  z-index: 80;
+  fill: rgb(155, 224, 89);
+}
+.circle{
+  position: relative;
+  width: 100%;
+}
+.textContainer{
+  position: absolute;
+}
+.place{
+  text-align: center;
+  border-bottom: 3px solid white;
+}
+.percent{
+  text-align: center;
+}
+.class{
+  text-align: center;
+}
+
+#percentContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position:absolute;
+  z-index: 100;
+  height: 100%;
+  z-index: 1000;
+}
+#p{
+  text-align: center;
+  color:white;
+  z-index: 10000;
+
+}
+#AContainer{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.sc1{
+  position: absolute;
+  width: 8%;
+}
+.sc2{
+  position: absolute;
+  width: 8%;
+}
+
+.ra{
+  text-align: center;
+}
+#cir{
+  position: relative;
+  fill: none;
+  width: 15%;
+  z-index: 1000;
+}
+#cirContainer{
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}

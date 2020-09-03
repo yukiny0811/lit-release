@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/userpass.css">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400&display=swap&subset=japanese" rel="stylesheet">
+    <title>Life is Tech リリース率</title>
+  </head>
+  <body>
+    <form action="/userpass" method="post" id="selectForm">
+      <select name="userclass" size="1" id="classSelect">
+        <option value="nil">選択されていません</option>
+        <% @season.litclats.all.each do |s| %>
+          <option value="<%= s.id %>"><%= s.classname %></option>
+        <% end %>
+      </select>
+    </form>
+    <div id="homeButtonContainer">
+      <svg id="homeButton" data-name="homeButton" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 413.58 431.49"><path class="cls-1" d="M512.07,291,701,478.8c10.68,10.62,3.16,28.86-11.9,28.86H311.3c-15.07,0-22.59-18.24-11.91-28.86L488.27,291A16.87,16.87,0,0,1,512.07,291Z" transform="translate(-293.38 -285.1)"/><path class="cls-2" d="M633.14,518.54H367.21a14.09,14.09,0,0,0-14.09,14.09V701.5a14.08,14.08,0,0,0,14.09,14.08h24.91v-134h88.55v134H633.14a14.08,14.08,0,0,0,14.08-14.08V532.63A14.08,14.08,0,0,0,633.14,518.54Z" transform="translate(-293.38 -285.1)"/></svg>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+      $("#homeButton").on("click", function(e){
+        window.location.href = "/";
+      });
+
+      $("#homeButtonContainer").css("top", window.innerHeight - window.innerWidth * 0.06 + "px");
+
+      $("#classSelect").on("change", function(e){
+        let selectBox = document.getElementById("classSelect");
+        let id = selectBox.options[selectBox.selectedIndex].value;
+        $.ajax("/userpass1", {
+          type: "POST",
+          data: {
+            userselectclassid: id
+          },
+          datatype: "html"
+        }).done(function(res){
+          $("#selectForm").append(res);
+          $("#teamSelect").on("change", function(e){
+            let selectBox = document.getElementById("teamSelect");
+            let id = selectBox.options[selectBox.selectedIndex].value;
+            $.ajax("/userpass2", {
+              type: "POST",
+              data: {
+                userselectteamid: id
+              },
+              datatype: "html"
+            }).done(function(res){
+              $("#selectForm").append(res);
+              $("#memberSelect").on("change", function(e){
+                $("#selectForm").submit();
+              });
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

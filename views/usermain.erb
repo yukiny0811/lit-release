@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/usermain.css">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400&display=swap&subset=japanese" rel="stylesheet">
+    <title>Life is Tech リリース率</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:url" content="https://lit-release.herokuapp.com"/>
+    <meta property="og:title" content="Life is Tech リリース率管理"/>
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:image" content="image/siteImage.png"/>
+    <meta property="og:site_name" content="lit-release"/>
+    <link rel="icon" href="image/siteImage.png" sizes="16x16" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="48x48" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="62x62" type="image/png"/>
+    <link rel="apple-touch-icon-precomposed" href="image/siteImage.png" />
+  </head>
+  <body>
+    <div id="titleContainer">
+      <h1 id="titleText"><%= @member.membername %>の進捗は<span id="per">0</span>％！！</h1>
+    </div>
+    <div id="homeButtonContainer">
+      <svg id="homeButton" data-name="homeButton" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 413.58 431.49"><path class="cls-1" d="M512.07,291,701,478.8c10.68,10.62,3.16,28.86-11.9,28.86H311.3c-15.07,0-22.59-18.24-11.91-28.86L488.27,291A16.87,16.87,0,0,1,512.07,291Z" transform="translate(-293.38 -285.1)"/><path class="cls-2" d="M633.14,518.54H367.21a14.09,14.09,0,0,0-14.09,14.09V701.5a14.08,14.08,0,0,0,14.09,14.08h24.91v-134h88.55v134H633.14a14.08,14.08,0,0,0,14.08-14.08V532.63A14.08,14.08,0,0,0,633.14,518.54Z" transform="translate(-293.38 -285.1)"/></svg>
+    </div>
+    <img id="yotei" src="image/yotei.png" alt="">
+    <img id="release" src="image/release.png" alt="">
+    <canvas id="slider"></canvas>
+    <div id="cover"></div>
+    <svg id="sliderCircle" data-name="sliderCircle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+      <% if @percentage.present? %>
+      let percentage = parseFloat(<%= @percentage %>);
+      <% else %>
+      let percentage = 0;
+      <% end %>
+
+      $("#homeButton").on("click", function(e){
+        window.location.href = "/";
+      });
+
+      $("#homeButtonContainer").css("top", window.innerHeight - window.innerWidth * 0.06 + "px");
+
+      $("#slider").css("width", window.innerWidth * 0.8);
+      $("#slider").css("height", "30");
+      $("#slider").attr("width", window.innerWidth * 0.8);
+      $("#slider").attr("height", "30");
+
+      $("#slider").css("top", window.innerHeight * 0.6);
+      $("#slider").css("left", window.innerWidth * 0.1);
+
+      $("#sliderCircle").css("top", window.innerHeight * 0.6 - (parseFloat($("#sliderCircle").css("width")) - 30) / 2);
+      $("#sliderCircle").css("left", window.innerWidth * 0.1 + window.innerWidth * 0.8 * percentage / 100 - parseFloat($("#sliderCircle").css("width")) / 2);
+
+      let canvas = document.getElementById("slider");
+      let sli = canvas.getContext("2d");
+
+      $("#titleContainer").css("height", window.innerHeight * 0.7);
+      $("#titleText").css("font-size", window.innerWidth * 0.03);
+      $("#per").css("font-size", window.innerWidth * 0.06);
+
+      $("#yotei").css("top", window.innerHeight * 0.65);
+      $("#release").css("top", window.innerHeight * 0.50);
+
+      let mousedown = false;
+
+      $("#sliderCircle").on("mousedown", function(e){
+        mousedown = true;
+      });
+
+
+      if (percentage < 20){
+        sli.beginPath();
+        sli.fillStyle = "rgba(155, 224, 89, 1)";
+        sli.rect(0, 0, canvas.width * percentage / 100, 30);
+        sli.fill();
+        sli.closePath();
+        $("body").css("background-color", "rgba(155, 224, 89, 0.5)");
+      } else if (percentage < 40){
+        sli.beginPath();
+        sli.fillStyle = "rgb(66, 156, 215)";
+        sli.rect(0, 0, canvas.width * percentage / 100, 30);
+        sli.fill();
+        sli.closePath();
+        $("body").css("background-color", "rgba(66, 156, 215, 0.5)");
+      } else if (percentage < 60){
+        sli.beginPath();
+        sli.fillStyle = "rgb(200, 95, 244)";
+        sli.rect(0, 0, canvas.width * percentage / 100, 30);
+        sli.fill();
+        sli.closePath();
+        $("body").css("background-color", "rgba(200, 95, 244, 0.5)");
+      } else if (percentage < 80){
+        sli.beginPath();
+        sli.fillStyle = "rgb(240, 175, 89)";
+        sli.rect(0, 0, canvas.width * percentage / 100, 30);
+        sli.fill();
+        sli.closePath();
+        $("body").css("background-color", "rgba(240, 175, 89, 0.5)");
+      } else if (percentage < 100){
+        sli.beginPath();
+        sli.fillStyle = "rgb(255, 80, 64)";
+        sli.rect(0, 0, canvas.width * percentage / 100, 30);
+        sli.fill();
+        sli.closePath();
+        $("body").css("background-color", "rgba(255, 80, 64, 0.5)");
+      } else {
+        sli.beginPath();
+        sli.fillStyle = "rgb(245, 201, 69)";
+        sli.rect(0, 0, canvas.width * percentage / 100, 30);
+        sli.fill();
+        sli.closePath();
+        $("body").css("background-color", "rgba(245, 201, 69, 0.5)");
+      }
+      $("#per").html(Math.floor(percentage));
+
+
+
+
+
+      $(window).on("mousemove", function(e){
+        if (mousedown){
+          if(e.clientX > window.innerWidth * 0.1 && e.clientX < window.innerWidth * 0.9){
+            percentage = ((e.clientX - window.innerWidth * 0.1) / (window.innerWidth * 0.8)) * 100;
+            console.log(percentage);
+            $("#sliderCircle").css("left", window.innerWidth * 0.1 + window.innerWidth * 0.8 * percentage / 100 - parseFloat($("#sliderCircle").css("width")) / 2);
+          } else if (e.clientX > window.innerWidth * 0.1){
+            percentage = 100;
+            $("#sliderCircle").css("left", window.innerWidth * 0.1 + window.innerWidth * 0.8 * percentage / 100 - parseFloat($("#sliderCircle").css("width")) / 2);
+          } else{
+            percentage = 0;
+            $("#sliderCircle").css("left", window.innerWidth * 0.1 + window.innerWidth * 0.8 * percentage / 100 - parseFloat($("#sliderCircle").css("width")) / 2);
+          }
+        }
+        sli.clearRect(0, 0, canvas.width, canvas.height);
+        if (percentage < 20){
+          sli.beginPath();
+          sli.fillStyle = "rgba(155, 224, 89, 1)";
+          sli.rect(0, 0, canvas.width * percentage / 100, 30);
+          sli.fill();
+          sli.closePath();
+          $("body").css("background-color", "rgba(155, 224, 89, 0.5)");
+        } else if (percentage < 40){
+          sli.beginPath();
+          sli.fillStyle = "rgb(66, 156, 215)";
+          sli.rect(0, 0, canvas.width * percentage / 100, 30);
+          sli.fill();
+          sli.closePath();
+          $("body").css("background-color", "rgba(66, 156, 215, 0.5)");
+        } else if (percentage < 60){
+          sli.beginPath();
+          sli.fillStyle = "rgb(200, 95, 244)";
+          sli.rect(0, 0, canvas.width * percentage / 100, 30);
+          sli.fill();
+          sli.closePath();
+          $("body").css("background-color", "rgba(200, 95, 244, 0.5)");
+        } else if (percentage < 80){
+          sli.beginPath();
+          sli.fillStyle = "rgb(240, 175, 89)";
+          sli.rect(0, 0, canvas.width * percentage / 100, 30);
+          sli.fill();
+          sli.closePath();
+          $("body").css("background-color", "rgba(240, 175, 89, 0.5)");
+        } else if (percentage < 100){
+          sli.beginPath();
+          sli.fillStyle = "rgb(255, 80, 64)";
+          sli.rect(0, 0, canvas.width * percentage / 100, 30);
+          sli.fill();
+          sli.closePath();
+          $("body").css("background-color", "rgba(255, 80, 64, 0.5)");
+        } else {
+          sli.beginPath();
+          sli.fillStyle = "rgb(245, 201, 69)";
+          sli.rect(0, 0, canvas.width * percentage / 100, 30);
+          sli.fill();
+          sli.closePath();
+          $("body").css("background-color", "rgba(245, 201, 69, 0.5)");
+        }
+        $("#per").html(Math.floor(percentage));
+      });
+      $(window).on("mouseup", function(e){
+        mousedown = false;
+        let id =
+        $.ajax("/usermain", {
+          type: "POST",
+          data: {
+            percentage: percentage,
+            memberid: <%= @member.id %>
+          },
+          datatyle: "html"
+        });
+      });
+
+
+
+
+
+      let resizeTimer = null;
+      $(window).on("resize", function(e) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          window.location.href = "/usermain"
+        }, 200);
+      });
+    </script>
+  </body>
+</html>

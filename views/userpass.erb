@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/userpass.css">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400&display=swap&subset=japanese" rel="stylesheet">
+    <title>Life is Tech リリース率</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:url" content="https://lit-release.herokuapp.com"/>
+    <meta property="og:title" content="Life is Tech リリース率管理"/>
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:image" content="image/siteImage.png"/>
+    <meta property="og:site_name" content="lit-release"/>
+    <link rel="icon" href="image/siteImage.png" sizes="16x16" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="48x48" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="62x62" type="image/png"/>
+    <link rel="apple-touch-icon-precomposed" href="image/siteImage.png" />
+  </head>
+  <body>
+    <div id="hContainer">
+      <h1 id="h">ニックネームを入力してください</h1>
+    </div>
+    <form action="/userpass2" method="GET">
+      <div id="textCon">
+        <input type="text" name="membernametext" id="textInput">
+      </div>
+      <div id="subCon">
+        <input type="submit" value="次" id="submitInput">
+      </div>
+    </form>
+    <div id="homeButtonContainer">
+      <svg id="homeButton" data-name="homeButton" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 413.58 431.49"><path class="cls-1" d="M512.07,291,701,478.8c10.68,10.62,3.16,28.86-11.9,28.86H311.3c-15.07,0-22.59-18.24-11.91-28.86L488.27,291A16.87,16.87,0,0,1,512.07,291Z" transform="translate(-293.38 -285.1)"/><path class="cls-2" d="M633.14,518.54H367.21a14.09,14.09,0,0,0-14.09,14.09V701.5a14.08,14.08,0,0,0,14.09,14.08h24.91v-134h88.55v134H633.14a14.08,14.08,0,0,0,14.08-14.08V532.63A14.08,14.08,0,0,0,633.14,518.54Z" transform="translate(-293.38 -285.1)"/></svg>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+      $("#homeButton").on("click", function(e){
+        window.location.href = "/";
+      });
+
+      $("#homeButtonContainer").css("top", window.innerHeight - window.innerWidth * 0.06 + "px");
+
+      $("#textCon").css("top", window.innerHeight * 0.45);
+      $("#subCon").css("top", window.innerHeight * 0.55);
+      $("#h").css("font-size", window.innerWidth * 0.04);
+
+
+
+
+      let resizeTimer = null;
+      $(window).on("resize", function(e) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          window.location.href = "/userpass"
+        }, 200);
+      });
+    </script>
+  </body>
+</html>

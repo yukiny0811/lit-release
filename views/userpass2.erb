@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/userpass2.css">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400&display=swap&subset=japanese" rel="stylesheet">
+    <title>Life is Tech リリース率</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:url" content="https://lit-release.herokuapp.com"/>
+    <meta property="og:title" content="Life is Tech リリース率管理"/>
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:image" content="image/siteImage.png"/>
+    <meta property="og:site_name" content="lit-release"/>
+    <link rel="icon" href="image/siteImage.png" sizes="16x16" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="48x48" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="62x62" type="image/png"/>
+    <link rel="apple-touch-icon-precomposed" href="image/siteImage.png" />
+  </head>
+  <body>
+    <div id="hContainer">
+      <h1 id="h">自分に一致するものを選んでください</h1>
+    </div>
+    <div id="userButtonContainer">
+      <svg id="userButton" data-name="userButton" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 935.53 935.53"><rect class="cls-1" x="0.5" y="0.5" width="934.53" height="934.53" rx="129.61"/><circle class="cls-2" cx="467.77" cy="289.77" r="224"/><path class="cls-3" d="M824.65,889c-4.85-151.57-59.56-284.36-141-365a273,273,0,0,1-367.28,0c-81.45,80.64-136.16,213.43-141,365Z" transform="translate(-32.23 -32.23)"/></svg>
+    </div>
+    <div id="allContainer">
+      <% if @memberList.present? %>
+      <% @memberList.each do |m| %>
+        <div class="selectContainer" id="<%= m.id %>">
+          <svg class="selectButton" data-name="temp" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+          <div class="nameContainer">
+            <div>
+              <h4 class="name"><%= Season.find_by(id:Litclat.find_by(id:Team.find_by(id:m.team_id).litclat_id).season_id).seasonname %></h4>
+              <h4 class="name"><%= Litclat.find_by(id:Team.find_by(id:m.team_id).litclat_id).classname %></h4>
+              <h4 class="name"><%= Team.find_by(id:m.team_id).mentorname %></h4>
+              <h4 class="name"><%= m.membername %></h4>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/userpass2.js"></script>
+    <script>
+      $(".name").css("font-size", window.innerWidth * 0.02);
+    </script>
+  </body>
+</html>

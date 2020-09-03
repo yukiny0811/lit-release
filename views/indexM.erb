@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400&display=swap&subset=japanese" rel="stylesheet">
+    <title>Life is Tech リリース率</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:url" content="https://lit-release.herokuapp.com"/>
+    <meta property="og:title" content="Life is Tech リリース率管理"/>
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:image" content="image/siteImage.png"/>
+    <meta property="og:site_name" content="lit-release"/>
+    <link rel="icon" href="image/siteImage.png" sizes="16x16" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="48x48" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="62x62" type="image/png"/>
+    <link rel="apple-touch-icon-precomposed" href="image/siteImage.png" />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="allContainer1">
+      <canvas id="oresen"></canvas>
+      <div id="mainTitleContainer">
+        <% if @season.present? %>
+          <h1 id="mainTitle">全体リリース率！＜<%= @season %>＞</h1>
+        <% else %>
+          <h1 id="mainTitle">全体リリース率！＜シーズンが選択されていません＞</h1>
+        <% end %>
+      </div>
+      <div id="cirContainer">
+        <svg id="cir" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div id="percentContainer">
+          <% if @releasedPercentAllClass.present? %>
+            <h1 id="p"><%= (@releasedPercentAllClass * 100).to_i %>％</h1>
+          <% else %>
+            <h1 id="p">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <img class="sc1" src="image/scroll.png" alt="">
+      <img class="sc2" src="image/scroll.png" alt="">
+    </div>
+    <div id="allContainer2">
+      <div id="firstContainer">
+        <svg class="circle" data-name="sliderCircle" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div class="textContainer">
+          <h1 class="ra">リリース率ランキング</h1>
+          <h2 class="place">1位</h2>
+          <% if @classnameArray.present? && @classReleasedPercent.present? && @classnameArray != "no data" && @classReleasedPercent != "no data" %>
+            <% if @classnameArray.count - 1 >= 0 %>
+              <h2 class="class"><%= @classnameArray[@classnameArray2.count-1] %></h2>
+              <h1 class="percent"><%= (@classReleasedPercent[@classReleasedPercent.count-1]*100).to_i %>％</h1>
+            <% else %>
+              <h2 class="class">クラスがありません</h2>
+              <h1 class="percent">--％</h1>
+            <% end %>
+          <% else %>
+            <h2 class="class">クラスがありません</h2>
+            <h1 class="percent">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <div id="secondContainer">
+        <svg class="circle" data-name="sliderCircle" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div class="textContainer">
+          <h1 class="ra">リリース率ランキング</h1>
+          <h2 class="place">2位</h2>
+          <% if @classnameArray.present? && @classReleasedPercent.present? && @classnameArray != "no data" && @classReleasedPercent != "no data" %>
+            <% if @classnameArray.count - 2 >= 0 %>
+              <h2 class="class"><%= @classnameArray[@classnameArray2.count-2] %></h2>
+              <h1 class="percent"><%= (@classReleasedPercent[@classReleasedPercent.count-2]*100).to_i %>％</h1>
+            <% else %>
+              <h2 class="class">クラスがありません</h2>
+              <h1 class="percent">--％</h1>
+            <% end %>
+          <% else %>
+            <h2 class="class">クラスがありません</h2>
+            <h1 class="percent">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <div id="thirdContainer">
+        <svg class="circle" data-name="sliderCircle" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div class="textContainer">
+          <h1 class="ra">リリース率ランキング</h1>
+          <h2 class="place">3位</h2>
+          <% if  @classnameArray.present? && @classReleasedPercent.present? && @classnameArray != "no data" && @classReleasedPercent != "no data"  %>
+            <% if @classnameArray.count - 3 >= 0 %>
+              <h2 class="class"><%= @classnameArray[@classnameArray2.count-3] %></h2>
+              <h1 class="percent"><%= (@classReleasedPercent[@classReleasedPercent.count-3]*100).to_i %>％</h1>
+            <% else %>
+              <h2 class="class">クラスがありません</h2>
+              <h1 class="percent">--％</h1>
+            <% end %>
+          <% else %>
+            <h2 class="class">クラスがありません</h2>
+            <h1 class="percent">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <img class="sc1" src="image/scroll.png" alt="">
+      <img class="sc2" src="image/scroll.png" alt="">
+    </div>
+    <div id="allContainer3">
+      <canvas id="pie"></canvas>
+      <div id="mainTitleContainer3">
+        <% if @season.present? %>
+          <h1 id="mainTitle3">メンバーの進捗！＜<%= @season %>＞</h1>
+        <% else %>
+          <h1 id="mainTitle3">メンバーの進捗！＜シーズンが選択されていません＞</h1>
+        <% end %>
+      </div>
+    </div>
+    <div id="userButtonContainer">
+      <svg id="userButton" data-name="userButton" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 935.53 935.53"><rect class="cls-1" x="0.5" y="0.5" width="934.53" height="934.53" rx="129.61"/><circle class="cls-2" cx="467.77" cy="289.77" r="224"/><path class="cls-3" d="M824.65,889c-4.85-151.57-59.56-284.36-141-365a273,273,0,0,1-367.28,0c-81.45,80.64-136.16,213.43-141,365Z" transform="translate(-32.23 -32.23)"/></svg>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+
+      $("#setteiButtonContainer").css("top", window.innerHeight - window.innerWidth * 0.06 + "px");
+      $("#userButtonContainer").css("top", window.innerHeight - window.innerWidth * 0.06 + "px");
+
+      $("#mainTitle").css("font-size", window.innerWidth * 0.03 + "px");
+      $("#mainTitle3").css("font-size", window.innerWidth * 0.03 + "px");
+
+      $(window).on("load", function(e){
+        $("#mainTitleContainer").css("opacity", 1);
+      });
+
+      let time = setTimeout(function(){
+        $("#mainTitleContainer").css("height", window.innerHeight * 0.3);
+      }, 1500);
+
+
+      $("#mainTitleContainer3").css("height", window.innerHeight * 0.3);
+      $("#oresen").css("height", window.innerHeight * 0.6 + "px");
+      $("#oresen").css("top", window.innerHeight * 0.3 + "px");
+      $("#pie").css("height", window.innerHeight * 0.6 + "px");
+      $("#pie").css("top", window.innerHeight * 0.3 + "px");
+      let time2 = setTimeout(function () {
+        let oresen = document.getElementById("oresen");
+        let oresenChart = new Chart(oresen, {
+          type: "pie",
+          data: {
+            labels: [
+              "リリース済み", "未リリース", "未回答"
+            ],
+            datasets: [
+              {
+                backgroundColor: [
+                  "rgb(255, 80, 64)", "rgb(66, 156, 215)", "rgb(150, 150, 150)"
+                ],
+                <% if @releasedPercentAllClass.present? && @releasedPercentAllClass != "no data" %>
+                data: [<%= @releasedPercentAllClass * 100 %>, <%= @unreleasedPercentAllClass * 100 %>, <%= @unsavedPercentAllClass * 100 %>]
+                <% else %>
+                data: [0, 0, 0]
+                <% end %>
+              }
+            ]
+          }
+        });
+        $("#cirContainer").css("opacity", 1);
+      }, 2000);
+
+      let pie = document.getElementById("pie");
+      let pieChart = new Chart(pie, {
+        type: "pie",
+        data: {
+          labels: [
+            "企画", "開発", "デザイン", "調整", "リリース準備", "リリース"
+          ],
+          datasets: [
+            {
+              backgroundColor: [
+                "rgb(255, 80, 64)", "rgb(66, 156, 215)", "purple", "orange", "pink" ,"yellow"
+              ],
+              <% if @shinnchoku.present? %>
+              data: [<%= @shinnchoku[0] %>, <%= @shinnchoku[1] %>, <%= @shinnchoku[2] %>, <%= @shinnchoku[3] %>, <%= @shinnchoku[4] %>, <%= @shinnchoku[5] %>]
+              <% else %>
+              data: [0, 0, 0, 0, 0, 0]
+              <% end %>
+            }
+          ]
+        }
+      });
+
+
+      $(".sc1").css("top", window.innerHeight - parseFloat($(".sc1").css("height")));
+      $(".sc2").css("top", window.innerHeight - parseFloat($(".sc2").css("height")));
+
+      $(".sc1").css("left", window.innerWidth / 3 - parseFloat($(".sc1").css("width")) / 2);
+      $(".sc2").css("left", window.innerWidth / 3 * 2 - parseFloat($(".sc2").css("width")) / 2);
+
+      $(".ra").css("font-size", window.innerWidth * 0.03);
+
+      $("#cirContainer").css("top", window.innerHeight * 0.3);
+      $("#cirContainer").css("height", window.innerHeight * 0.6);
+
+
+      // let nowWindow = 0;
+
+      $(".place").css("font-size", window.innerWidth * 0.03);
+      $(".class").css("font-size", window.innerWidth * 0.04);
+      $(".percent").css("font-size", window.innerWidth * 0.06);
+
+      // $("#percentContainer").css("height", window.innerHeight * 0.6);
+      // $("#percentContainer").css("top", window.innerHeight * 0.3);
+      $("#p").css("font-size", window.innerWidth * 0.06);
+      $("#cirContainer").css("opacity", 0);
+
+
+      // $(window).on("click", function(e){   $("#allContainer1").css("top", "-100%");   $("#allContainer2").css("top", "0");   nowWindow = 1; });
+
+      $("#firstContainer").css("top", window.innerHeight * 0.1);
+      $("#secondContainer").css("top", window.innerHeight * 0.4);
+      $("#thirdContainer").css("top", window.innerHeight * 0.7);
+
+      $("#firstContainer").css("left", window.innerWidth * 0.25);
+      $("#secondContainer").css("left", window.innerWidth * 0.25);
+      $("#thirdContainer").css("left", window.innerWidth * 0.25);
+      $("#firstContainer").css("width", window.innerWidth * 0.5);
+      $("#secondContainer").css("width", window.innerWidth * 0.5);
+      $("#thirdContainer").css("width", window.innerWidth * 0.5);
+
+      $("#firstContainer").on("mouseover", function (e) {
+        $("#firstContainer").css("left", window.innerWidth * 0.25);
+        $("#secondContainer").css("left", window.innerWidth * 0.5);
+        $("#thirdContainer").css("left", window.innerWidth * 0.1);
+
+        $("#firstContainer").css("z-index", 100);
+        $("#secondContainer").css("z-index", 90);
+        $("#thirdContainer").css("z-index", 80);
+
+        $("#firstContainer").css("opacity", 1);
+        $("#secondContainer").css("opacity", 1);
+        $("#thirdContainer").css("opacity", 1);
+      });
+      $("#secondContainer").on("mouseover", function (e) {
+        $("#secondContainer").css("left", window.innerWidth * 0.4);
+        $("#firstContainer").css("left", window.innerWidth * 0);
+        $("#thirdContainer").css("left", window.innerWidth * -0.3);
+
+        $("#secondContainer").css("z-index", 100);
+        $("#firstContainer").css("z-index", 90);
+        $("#thirdContainer").css("z-index", 80);
+
+        $("#firstContainer").css("opacity", 0.5);
+        $("#secondContainer").css("opacity", 1);
+        $("#thirdContainer").css("opacity", 0.5);
+      });
+      $("#thirdContainer").on("mouseover", function (e) {
+        $("#thirdContainer").css("left", window.innerWidth * 0.2);
+        $("#firstContainer").css("left", window.innerWidth * 0.5);
+        $("#secondContainer").css("left", window.innerWidth * 0.9);
+
+        $("#thirdContainer").css("z-index", 100);
+        $("#firstContainer").css("z-index", 90);
+        $("#secondContainer").css("z-index", 80);
+
+        $("#firstContainer").css("opacity", 0.5);
+        $("#secondContainer").css("opacity", 0.5);
+        $("#thirdContainer").css("opacity", 1);
+      });
+
+      let tr = false;
+
+
+      $(window).on("touchstart", function(e){
+        saveY = e.pageY;
+      });
+      $(window).on("touchmove", function(e){
+        if (tr == true){
+          return;
+        }
+        if (e.pageY > saveY){
+          if (nowWindow == 2){
+            nowWindow = 1;
+            tr = true;
+          } else if (nowWindow == 1){
+            nowWindow = 0;
+            tr = true;
+          }
+          change();
+        }
+        if (e.pageY < saveY){
+          if (nowWindow == 0){
+            nowWindow = 1;
+            tr = true;
+          } else if (nowWindow == 1){
+            nowWindow = 2;
+            tr = true;
+          }
+          change();
+        }
+      });
+
+
+      function change(){
+        if(nowWindow == 0){
+          $("#allContainer1").css("top", "0");
+          $("#allContainer2").css("top", "100%");
+          $("#allContainer3").css("top", "200%");
+        }
+        if (nowWindow == 1){
+          $("#allContainer1").css("top", "-100%");
+          $("#allContainer2").css("top", "0");
+          $("#allContainer3").css("top", "100%");
+        }
+        if(nowWindow == 2){
+          $("#allContainer1").css("top", "-200%");
+          $("#allContainer2").css("top", "-100%");
+          $("#allContainer3").css("top", "0%");
+        }
+        let tt = setTimeout(function(){
+          tr = false;
+        }, 400);
+      }
+
+      let nowWindow = 0;
+      let windowCount = 3;
+
+      $("#setteiButton").on("click", function(e){
+        window.location.href = "/setteipass";
+      });
+
+      $("#userButton").on("click", function(e){
+        window.location.href = "/userpass";
+      });
+
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
+      $("#canvas").attr("width", window.innerWidth);
+      $("#canvas").attr("height", window.innerHeight);
+    </script>
+  </body>
+</html>

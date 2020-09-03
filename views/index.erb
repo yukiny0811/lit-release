@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Life is Tech リリース率</title>
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:300,400&display=swap&subset=japanese" rel="stylesheet">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:url" content="https://lit-release.herokuapp.com"/>
+    <meta property="og:title" content="Life is Tech リリース率管理"/>
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Life is Tech Schoolのクラスがリリース率を競い合えるサイトです"/>
+    <meta property="og:image" content="image/siteImage.png"/>
+    <meta property="og:site_name" content="lit-release"/>
+    <link rel="icon" href="image/siteImage.png" sizes="16x16" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="48x48" type="image/png"/>
+    <link rel="icon" href="image/siteImage.png" sizes="62x62" type="image/png"/>
+    <link rel="apple-touch-icon-precomposed" href="image/siteImage.png"/>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="allContainer1">
+      <canvas id="oresen"></canvas>
+      <div id="mainTitleContainer">
+        <% if @season.present? %>
+          <h1 id="mainTitle">全体リリース率！＜<%= @season %>＞</h1>
+        <% else %>
+          <h1 id="mainTitle">全体リリース率！＜シーズンが選択されていません＞</h1>
+        <% end %>
+      </div>
+      <div id="cirContainer">
+        <svg id="cir" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div id="percentContainer">
+          <% if @releasedPercentAllClass.present? %>
+            <h1 id="p"><%= (@releasedPercentAllClass * 100).to_i %>％</h1>
+          <% else %>
+            <h1 id="p">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <img class="sc1" src="image/scroll.png" alt="">
+      <img class="sc2" src="image/scroll.png" alt="">
+    </div>
+    <div id="allContainer2">
+      <div id="firstContainer">
+        <svg class="circle" data-name="sliderCircle" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div class="textContainer">
+          <h1 class="ra">リリース率ランキング</h1>
+          <h2 class="place">1位</h2>
+          <% if @classnameArray.present? && @classReleasedPercent.present? && @classnameArray != "no data" && @classReleasedPercent != "no data"%>
+            <% if @classnameArray.count - 1 >= 0 %>
+              <h2 class="class"><%= @classnameArray[@classnameArray2.count-1] %></h2>
+              <h1 class="percent"><%= (@classReleasedPercent[@classReleasedPercent.count-1]*100).to_s.to_i %>％</h1>
+            <% else %>
+              <h2 class="class">クラスがありません</h2>
+              <h1 class="percent">--％</h1>
+            <% end %>
+          <% else %>
+            <h2 class="class">クラスがありません</h2>
+            <h1 class="percent">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <div id="secondContainer">
+        <svg class="circle" data-name="sliderCircle" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div class="textContainer">
+          <h1 class="ra">リリース率ランキング</h1>
+          <h2 class="place">2位</h2>
+          <% if @classnameArray.present? && @classReleasedPercent.present? && @classnameArray != "no data" && @classReleasedPercent != "no data" %>
+            <% if @classnameArray.count - 2 >= 0 %>
+              <h2 class="class"><%= @classnameArray[@classnameArray2.count-2] %></h2>
+              <h1 class="percent"><%= (@classReleasedPercent[@classReleasedPercent.count-2]*100).to_s.to_i %>％</h1>
+            <% else %>
+              <h2 class="class">クラスがありません</h2>
+              <h1 class="percent">--％</h1>
+            <% end %>
+          <% else %>
+            <h2 class="class">クラスがありません</h2>
+            <h1 class="percent">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <div id="thirdContainer">
+        <svg class="circle" data-name="sliderCircle" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 605 605"><rect class="cls-1" x="0.5" y="0.5" width="604" height="604" rx="129.61"/></svg>
+        <div class="textContainer">
+          <h1 class="ra">リリース率ランキング</h1>
+          <h2 class="place">3位</h2>
+          <% if  @classnameArray.present? && @classReleasedPercent.present? && @classnameArray != "no data" && @classReleasedPercent != "no data"  %>
+            <% if @classnameArray.count - 3 >= 0 %>
+              <h2 class="class"><%= @classnameArray[@classnameArray2.count-3] %></h2>
+              <h1 class="percent"><%= (@classReleasedPercent[@classReleasedPercent.count-3]*100).to_s.to_i %>％</h1>
+            <% else %>
+              <h2 class="class">クラスがありません</h2>
+              <h1 class="percent">--％</h1>
+            <% end %>
+          <% else %>
+            <h2 class="class">クラスがありません</h2>
+            <h1 class="percent">--％</h1>
+          <% end %>
+        </div>
+      </div>
+      <img class="sc1" src="image/scroll.png" alt="">
+      <img class="sc2" src="image/scroll.png" alt="">
+    </div>
+    <div id="allContainer3">
+      <canvas id="pie"></canvas>
+      <div id="mainTitleContainer3">
+        <% if @season.present? %>
+          <h1 id="mainTitle3">メンバーの進捗！＜<%= @season %>＞</h1>
+        <% else %>
+          <h1 id="mainTitle3">メンバーの進捗！＜シーズンが選択されていません＞</h1>
+        <% end %>
+      </div>
+    </div>
+    <div id="setteiButtonContainer">
+      <svg id="setteiButton" data-name="setteiButton" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 459.13 459.13"><path
+        class="cls-1"
+        d="M727.09,533.22a231.86,231.86,0,0,0,2.09-23.45l-10.78,1.85q.26-5.28.26-10.62a220.55,220.55,0,0,0-1.84-28.44l10.89,1a227.35,227.35,0,0,0-4-23.22l-9.94,4.58a216.37,216.37,0,0,0-11.62-37.31l10.75-1.89A229.27,229.27,0,0,0,703,394.3l-8.36,6.95a219.17,219.17,0,0,0-20.9-33l9.83-4.58a230.74,230.74,0,0,0-15.11-18.06l-6.23,8.81a219.4,219.4,0,0,0-28.67-26.5l8.23-6.91a231.27,231.27,0,0,0-19.25-13.56l-3.71,10a218.16,218.16,0,0,0-34.5-18.2l6.1-8.69a227.4,227.4,0,0,0-22.13-8.13l-1,10.54a216.67,216.67,0,0,0-38-8.59l3.58-9.84a229,229,0,0,0-23.45-2.09l1.76,10.26c-3.66-.18-7.35-.28-11.06-.28a220.7,220.7,0,0,0-27.85,1.76l.9-10.27A227.15,227.15,0,0,0,450,278l4.3,9.35a216.73,216.73,0,0,0-37.16,11.5l-1.77-10A225.39,225.39,0,0,0,394,298.68l6.48,7.79a219.23,219.23,0,0,0-32.86,20.78l-4.25-9.14a228.79,228.79,0,0,0-18.06,15.1l8.18,5.79a219.93,219.93,0,0,0-26.37,28.53l-6.41-7.65a227.47,227.47,0,0,0-13.56,19.26l9.32,3.44a217.77,217.77,0,0,0-18.08,34.35l-8.11-5.68a226.39,226.39,0,0,0-8.12,22.13l9.85.91a217.89,217.89,0,0,0-8.49,37.87l-9.26-3.38a229,229,0,0,0-2.08,23.45l9.7-1.66c-.16,3.46-.25,6.93-.25,10.43a221,221,0,0,0,1.82,28.35l-9.81-.87a227.35,227.35,0,0,0,4,23.22l9-4.13a216.15,216.15,0,0,0,11.58,37l-9.75,1.72a229.27,229.27,0,0,0,9.92,21.38l7.62-6.34a219.43,219.43,0,0,0,20.86,32.75l-9.05,4.22a230.74,230.74,0,0,0,15.11,18.06l5.76-8.16a220,220,0,0,0,28.63,26.28L359.54,681a231.27,231.27,0,0,0,19.25,13.56l3.5-9.47a218.49,218.49,0,0,0,34.47,18l-5.85,8.35A226.26,226.26,0,0,0,433,719.54l.94-10.21a216.67,216.67,0,0,0,38,8.41l-3.53,9.69a229,229,0,0,0,23.45,2.09l-1.76-10.22c3.32.15,6.64.24,10,.24a221.06,221.06,0,0,0,28.94-1.91l-.92,10.42a227.15,227.15,0,0,0,23.21-4l-4.4-9.56a217,217,0,0,0,37.19-11.7L586,713.24a225.39,225.39,0,0,0,21.37-9.92l-6.8-8.18a218.73,218.73,0,0,0,32.9-21l4.53,9.74A227,227,0,0,0,656,668.79l-8.78-6.21a220.13,220.13,0,0,0,26.41-28.77l7,8.31a229.89,229.89,0,0,0,13.57-19.26L684,619.1a217.61,217.61,0,0,0,18.11-34.61l8.94,6.26a226.39,226.39,0,0,0,8.12-22.13l-10.88-1a217.26,217.26,0,0,0,8.5-38.14Z"
+        transform="translate(-271.09 -271.43)"/><path
+        class="cls-2"
+        d="M697.26,539.5a201.08,201.08,0,0,0,2.89-20.42l-9.51,1.13q.47-4.61.72-9.28a192,192,0,0,0-.32-25l9.48,1.33a197.93,197.93,0,0,0-2.44-20.49l-8.9,3.55a190.76,190.76,0,0,0-8.46-33.16L690.2,436a200.11,200.11,0,0,0-7.7-19.14l-7.63,5.69a192.4,192.4,0,0,0-16.78-29.82l8.81-3.56a201.4,201.4,0,0,0-12.39-16.48l-5.86,7.42a192.44,192.44,0,0,0-23.87-24.49L632.3,350a202.06,202.06,0,0,0-16.22-12.75l-3.7,8.61A191.08,191.08,0,0,0,583,328.36l5.72-7.33a198.47,198.47,0,0,0-19-8.12l-1.33,9.18a190.15,190.15,0,0,0-32.86-9.25l3.59-8.45a201.08,201.08,0,0,0-20.42-2.89l1.07,9.06q-4.8-.49-9.66-.75a193.21,193.21,0,0,0-24.45.27l1.26-8.95a200.37,200.37,0,0,0-20.49,2.44l3.34,8.38a189.15,189.15,0,0,0-33,8.37l-1.09-8.87a199.31,199.31,0,0,0-19.15,7.71l5.31,7.11A191.31,191.31,0,0,0,392.17,343l-3.31-8.19a198.75,198.75,0,0,0-16.49,12.39l6.9,5.43a192.63,192.63,0,0,0-24.37,23.76l-5.26-7a198,198,0,0,0-12.74,16.22l8,3.44a190.91,190.91,0,0,0-17.38,29.23l-6.84-5.35a202.1,202.1,0,0,0-8.11,19l8.58,1.25A189.65,189.65,0,0,0,312,465.87l-7.95-3.37a201.08,201.08,0,0,0-2.89,20.42l8.56-1c-.3,3-.54,6-.7,9.11a194.37,194.37,0,0,0,.31,24.88l-8.54-1.2a197.93,197.93,0,0,0,2.44,20.49l8-3.21a189.35,189.35,0,0,0,8.45,32.93L311.11,566a200.11,200.11,0,0,0,7.7,19.14l7-5.19a191.24,191.24,0,0,0,16.75,29.6l-8.11,3.28a201.4,201.4,0,0,0,12.39,16.48l5.42-6.87a192,192,0,0,0,23.85,24.29L369,652a202.22,202.22,0,0,0,16.23,12.75l3.49-8.13a191.14,191.14,0,0,0,29.33,17.3l-5.5,7a198.47,198.47,0,0,0,19,8.12l1.28-8.89a189.38,189.38,0,0,0,32.86,9.08l-3.53,8.33a200.49,200.49,0,0,0,20.41,2.89l-1.06-9c2.89.28,5.79.51,8.72.66a193.42,193.42,0,0,0,25.4-.35l-1.28,9.08a200.37,200.37,0,0,0,20.49-2.44l-3.41-8.57a189.84,189.84,0,0,0,33.06-8.54l1.13,9.23a199.31,199.31,0,0,0,19.15-7.71l-5.58-7.47a192.34,192.34,0,0,0,29.74-16.85l3.52,8.72a198.75,198.75,0,0,0,16.49-12.39l-7.4-5.83a191.94,191.94,0,0,0,24.41-24l5.72,7.59a198,198,0,0,0,12.74-16.22l-8.73-3.75a190.92,190.92,0,0,0,17.41-29.46l7.54,5.89a199.5,199.5,0,0,0,8.11-19l-9.48-1.38a189.67,189.67,0,0,0,9.18-33Z"
+        transform="translate(-271.09 -271.43)"/><circle class="cls-3" cx="229.57" cy="229.57" r="139.02"/></svg>
+    </div>
+    <div id="userButtonContainer">
+      <svg id="userButton" data-name="userButton" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 935.53 935.53"><rect class="cls-1" x="0.5" y="0.5" width="934.53" height="934.53" rx="129.61"/><circle class="cls-2" cx="467.77" cy="289.77" r="224"/><path class="cls-3" d="M824.65,889c-4.85-151.57-59.56-284.36-141-365a273,273,0,0,1-367.28,0c-81.45,80.64-136.16,213.43-141,365Z" transform="translate(-32.23 -32.23)"/></svg>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+
+      $("#setteiButtonContainer").css("top", window.innerHeight - window.innerWidth * 0.06 + "px");
+      $("#userButtonContainer").css("top", window.innerHeight - window.innerWidth * 0.06 + "px");
+
+      $("#mainTitle").css("font-size", window.innerWidth * 0.03 + "px");
+      $("#mainTitle3").css("font-size", window.innerWidth * 0.03 + "px");
+
+      $(window).on("load", function (e) {
+        $("#mainTitleContainer").css("opacity", 1);
+      });
+
+      let time = setTimeout(function () {
+        $("#mainTitleContainer").css("height", window.innerHeight * 0.3);
+      }, 1500);
+
+      $("#mainTitleContainer3").css("height", window.innerHeight * 0.3);
+      $("#oresen").css("height", window.innerHeight * 0.6 + "px");
+      $("#oresen").css("top", window.innerHeight * 0.3 + "px");
+      $("#pie").css("height", window.innerHeight * 0.6 + "px");
+      $("#pie").css("top", window.innerHeight * 0.3 + "px");
+      let time2 = setTimeout(function () {
+        let oresen = document.getElementById("oresen");
+        let oresenChart = new Chart(oresen, {
+          type: "pie",
+          data: {
+            labels: [
+              "リリース済み", "未リリース", "未回答"
+            ],
+            datasets: [
+              {
+                backgroundColor: [
+                  "rgb(255, 80, 64)", "rgb(66, 156, 215)", "rgb(150, 150, 150)"
+                ],
+                <% if @releasedPercentAllClass.present? && @releasedPercentAllClass != "no data" %>
+                data: [<%= @releasedPercentAllClass * 100 %>, <%= @unreleasedPercentAllClass * 100 %>, <%= @unsavedPercentAllClass * 100 %>]<% else %>
+                data: [0, 0, 0]<% end %>
+              }
+            ]
+          }
+        });
+        $("#cirContainer").css("opacity", 1);
+      }, 2000);
+
+      let pie = document.getElementById("pie");
+      let pieChart = new Chart(pie, {
+        type: "pie",
+        data: {
+          labels: [
+            "企画",
+            "開発",
+            "デザイン",
+            "調整",
+            "リリース準備",
+            "リリース"
+          ],
+          datasets: [
+            {
+              backgroundColor: [
+                "rgb(255, 80, 64)",
+                "rgb(66, 156, 215)",
+                "purple",
+                "orange",
+                "pink",
+                "yellow"
+              ],
+              <% if @shinnchoku.present? %>
+              data: [
+                <%= @shinnchoku[0] %>,
+                <%= @shinnchoku[1] %>,
+                <%= @shinnchoku[2] %>,
+                <%= @shinnchoku[3] %>,
+                <%= @shinnchoku[4] %>,
+                <%= @shinnchoku[5] %>
+              ]<% else %>
+              data: [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]<% end %>
+            }
+          ]
+        }
+      });
+
+      $(".sc1").css("top", window.innerHeight - parseFloat($(".sc1").css("height")));
+      $(".sc2").css("top", window.innerHeight - parseFloat($(".sc2").css("height")));
+
+      $(".sc1").css("left", window.innerWidth / 3 - parseFloat($(".sc1").css("width")) / 2);
+      $(".sc2").css("left", window.innerWidth / 3 * 2 - parseFloat($(".sc2").css("width")) / 2);
+
+      $(".ra").css("font-size", window.innerWidth * 0.03);
+
+      $("#cirContainer").css("top", window.innerHeight * 0.3);
+      $("#cirContainer").css("height", window.innerHeight * 0.6);
+
+      // let nowWindow = 0;
+
+      $(".place").css("font-size", window.innerWidth * 0.03);
+      $(".class").css("font-size", window.innerWidth * 0.04);
+      $(".percent").css("font-size", window.innerWidth * 0.06);
+
+      // $("#percentContainer").css("height", window.innerHeight * 0.6); $("#percentContainer").css("top", window.innerHeight * 0.3);
+      $("#p").css("font-size", window.innerWidth * 0.06);
+      $("#cirContainer").css("opacity", 0);
+
+      // $(window).on("click", function(e){   $("#allContainer1").css("top", "-100%");   $("#allContainer2").css("top", "0");   nowWindow = 1; });
+
+      $("#firstContainer").css("top", window.innerHeight * 0.1);
+      $("#secondContainer").css("top", window.innerHeight * 0.2);
+      $("#thirdContainer").css("top", window.innerHeight * 0.2);
+
+      $("#firstContainer").on("mouseover", function (e) {
+        $("#firstContainer").css("left", window.innerWidth * 0.25);
+        $("#secondContainer").css("left", window.innerWidth * 0.5);
+        $("#thirdContainer").css("left", window.innerWidth * 0.1);
+
+        $("#firstContainer").css("z-index", 100);
+        $("#secondContainer").css("z-index", 90);
+        $("#thirdContainer").css("z-index", 80);
+
+        $("#firstContainer").css("opacity", 1);
+        $("#secondContainer").css("opacity", 1);
+        $("#thirdContainer").css("opacity", 1);
+      });
+      $("#secondContainer").on("mouseover", function (e) {
+        $("#secondContainer").css("left", window.innerWidth * 0.4);
+        $("#firstContainer").css("left", window.innerWidth * 0);
+        $("#thirdContainer").css("left", window.innerWidth * -0.3);
+
+        $("#secondContainer").css("z-index", 100);
+        $("#firstContainer").css("z-index", 90);
+        $("#thirdContainer").css("z-index", 80);
+
+        $("#firstContainer").css("opacity", 0.5);
+        $("#secondContainer").css("opacity", 1);
+        $("#thirdContainer").css("opacity", 0.5);
+      });
+      $("#thirdContainer").on("mouseover", function (e) {
+        $("#thirdContainer").css("left", window.innerWidth * 0.2);
+        $("#firstContainer").css("left", window.innerWidth * 0.5);
+        $("#secondContainer").css("left", window.innerWidth * 0.9);
+
+        $("#thirdContainer").css("z-index", 100);
+        $("#firstContainer").css("z-index", 90);
+        $("#secondContainer").css("z-index", 80);
+
+        $("#firstContainer").css("opacity", 0.5);
+        $("#secondContainer").css("opacity", 0.5);
+        $("#thirdContainer").css("opacity", 1);
+      });
+
+      let tr = false;
+
+      $(window).on("scroll", function (e) {
+        if (tr == true) {
+          return;
+        }
+        if ($(this).scrollTop() < 0) {
+          if (nowWindow == 2) {
+            nowWindow = 1;
+            tr = true;
+          } else if (nowWindow == 1) {
+            nowWindow = 0;
+            tr = true;
+          }
+          change();
+        }
+        if ($(this).scrollTop() > 0) {
+          if (nowWindow == 0) {
+            nowWindow = 1;
+            tr = true;
+          } else if (nowWindow == 1) {
+            nowWindow = 2;
+            tr = true;
+          }
+          change();
+        }
+      });
+
+      function change() {
+        if (nowWindow == 0) {
+          $("#allContainer1").css("top", "0");
+          $("#allContainer2").css("top", "100%");
+          $("#allContainer3").css("top", "200%");
+        }
+        if (nowWindow == 1) {
+          $("#allContainer1").css("top", "-100%");
+          $("#allContainer2").css("top", "0");
+          $("#allContainer3").css("top", "100%");
+        }
+        if (nowWindow == 2) {
+          $("#allContainer1").css("top", "-200%");
+          $("#allContainer2").css("top", "-100%");
+          $("#allContainer3").css("top", "0%");
+        }
+        let tt = setTimeout(function () {
+          tr = false;
+        }, 400);
+      }
+
+      let nowWindow = 0;
+      let windowCount = 3;
+
+      $("#setteiButton").on("click", function (e) {
+        window.location.href = "/setteipass";
+      });
+
+      $("#userButton").on("click", function (e) {
+        window.location.href = "/userpass";
+      });
+
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
+      $("#canvas").attr("width", window.innerWidth);
+      $("#canvas").attr("height", window.innerHeight);
+    </script>
+  </body>
+</html>

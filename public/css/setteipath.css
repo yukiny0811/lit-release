@@ -1,0 +1,102 @@
+*{
+  padding: 0;
+  margin: 0;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  color: rgb(50, 50, 50);
+}
+
+body{
+  background-color: lightyellow;
+}
+
+#allContainer{
+  position: relative;
+  display: flex;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  left: 5%;
+}
+
+.setteiButton{
+  position: absolute;
+  width: 80%;
+}
+
+.setteiSelectContainer{
+  position: relative;
+  width: 20%;
+  margin: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setteiSelectContainer:hover .setteiButton{
+  width: 100%;
+}
+
+#seasonSettei{
+  fill: rgb(66, 156, 215);
+}
+
+#dbSettei{
+  fill: rgb(255, 80, 64);
+}
+#toukeiSettei{
+  fill: rgb(155, 224, 89);
+}
+.textContainer{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+#homeButton{
+  position: absolute;
+  width: 80%;
+  fill: rgb(66, 156, 215);
+  background-color: rgb(66, 156, 215);
+  border-radius: 20%;
+}
+
+#homeButton .cls-1{
+  fill: white;
+}
+#homeButton .cls-2{
+  fill: white;
+}
+
+#homeButtonContainer{
+  position: fixed;
+  width: 6%;
+  left: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 800;
+}
+
+#homeButton:hover{
+  width: 100%;
+}
+
+#seasonLabelContainer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#seasonLabel{
+  font-size: 1.5em;
+}
